@@ -79,6 +79,8 @@ public class DesignPatterns
                   .getMethods();
          for (MethodSource method : methods)
          {
+            if (method.isPrivate())
+               continue;
             MethodSource<JavaClassSource> decoratorMethod = decoratorClass
                      .addMethod().setPublic().setName(method.getName());
             StringBuilder sb = new StringBuilder();
