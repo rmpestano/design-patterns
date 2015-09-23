@@ -81,17 +81,14 @@ public class BuilderAddonTest {
 	}
 
 	@Test
-	@Ignore
 	public void shouldNotCreateBuilderFromNonJavaFile() throws TimeoutException, FileNotFoundException {
 		shellTest.getShell().setCurrentResource(project.getRoot());
 		addInvalidFile();
 		Result result = null;
 		try{
-		  result = shellTest.execute("builder --javaFile src/main/java/com/model/Person.php", 20, TimeUnit.SECONDS);
+		  result = shellTest.execute("builder --javaFile src/main/java/com/model/Person.php", 5, TimeUnit.SECONDS);
 		}catch (TimeoutException ex){
-			//result is null forge isn't returning when there are validation errors...
-			assertThat(result, is(instanceOf(Failed.class)));
-			assertThat(result.getMessage(), is(equalTo("The selected file must be Java file")));
+			assertThat(ex.getMessage().contains("The selected file must be Java file"), is(true));
 		}
 	}
 
